@@ -41,3 +41,10 @@ Once install and activated, enter a Zip into the required field on cart Shipping
 ## Theme changes
 
 This module overrides the core Hyva theme file: ```php-cart/shipping.phtml``` so, if you have customizations in that file, you will need to merge that with this modules version of the template
+
+Main things to note:
+
+* move Zip input above Region input
+* add ```x-bind:data-code="region.code"``` to region_id select element
+* add ```@keyup.debounce="zipLookup($event.target.value)"``` to zip element
+* ```zipLookup``` and ```setStateByCode``` functions in javascript
