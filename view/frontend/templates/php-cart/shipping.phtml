@@ -395,8 +395,10 @@ $storeConfig = $viewModels->require(StoreConfig::class);
                 if(code) {
                     const option = document.querySelector("[data-code='" + code + "']");
                     select.value = option.value;
+                    this.cartData.address.regionId = option.value;
                 } else {
                     select.selectedIndex = 0;
+                    this.cartData.address.regionId = 0;
                 }
             }
         }
