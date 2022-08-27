@@ -8,6 +8,12 @@ The result is cached within the browser localStorage, thus limiting the usage of
 
 ** NOTE: This was built for (and locked down to) USA zip lookups, which was my need. The cache is already built for country based caches, however the lookup data parsing, and form fields population will need adjustment for other countries. MR's welcomed. 
 
+
+
+https://user-images.githubusercontent.com/4994260/187010277-39f541e3-8f6b-4a9d-ae1e-dffb734ab616.mp4
+
+
+
 ## Requirements
 
 * Hyva Theme for Magento >= 1.1.17 (Uses the SSR cart code)
