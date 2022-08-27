@@ -6,7 +6,7 @@ This module uses google maps places (autocomplete) API to find the State for a g
 
 The result is cached within the browser localStorage, thus limiting the usage of teh API for repeat lookups.
 
-** NOTE: This was built for USA zip lookups, and has not been tested or used for other countries.
+** NOTE: This was built for (and locked down to) USA zip lookups, which was my need. The cache is already built for country based caches, however the lookup data parsing, and form fields population will need adjustment for other countries. MR's welcomed. 
 
 ## Requirements
 

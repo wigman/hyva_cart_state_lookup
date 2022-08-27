@@ -183,7 +183,6 @@ $storeConfig = $viewModels->require(StoreConfig::class);
                     this.customer = data.customer;
                 }
                 if (data['directory-data']) {
-                    debugger;
                     this.directoryData = data['directory-data'];
                 }
                 if (data['cart-data']) {
@@ -336,13 +335,13 @@ $storeConfig = $viewModels->require(StoreConfig::class);
                 }
             },
             zipLookup(zip) {
-                if (zip.length > 4) {
+                if (this.cartData.address.countryId == 'US' && zip.length > 4) {
                     const browserStorage = hyva.getBrowserStorage();
                     if (browserStorage) {
                         let lookupCache = browserStorage.getItem('zip-lookup-cache');
                         if(lookupCache) {
                             lookupCache = JSON.parse(lookupCache);
-                            const isCached = lookupCache.find(e => e.zip === zip);
+                            const isCached = lookupCache.find(e => e.key === zip+'|'+this.cartData.address.countryId);
                             if (isCached) {
                                 this.setStateByCode(isCached.state);
                                 return;
@@ -365,7 +364,7 @@ $storeConfig = $viewModels->require(StoreConfig::class);
                                     if (browserStorage) {
                                         let lookupCache = browserStorage.getItem('zip-lookup-cache');
                                         const cacheData = {};
-                                        cacheData.zip = zip;
+                                        cacheData.key = zip+'|'+this.cartData.address.countryId;
                                         cacheData.state = state;
                                         if(!lookupCache) {
                                             lookupCache = [];
@@ -377,18 +376,24 @@ $storeConfig = $viewModels->require(StoreConfig::class);
                                     }
                                 } else {
                                     console.log('error: no address components found in state lookup');
+                                    this.setStateByCode(null);
                                 }
                             } else {
                                 console.log('error: state lookup status was ' + status);
+                                this.setStateByCode(null);
                             }
                         });
                 }
             },
 
             setStateByCode(code) {
-                const option = document.querySelector("[data-code='"+code+"']");
                 const select = document.querySelector("#region_id");
-                select.value = option.value;
+                if(code) {
+                    const option = document.querySelector("[data-code='" + code + "']");
+                    select.value = option.value;
+                } else {
+                    select.selectedIndex = 0;
+                }
             }
         }
     }
